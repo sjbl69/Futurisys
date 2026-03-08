@@ -87,7 +87,62 @@ Swagger UI : http://127.0.0.1:8000/docs
 
 # Tests
 
-Les tests peuvent être exécutés avec **Pytest** :
+## Tests
+
+Afin de garantir la fiabilité et la robustesse de l’API, des tests unitaires et fonctionnels ont été mis en place à l’aide de **Pytest**.
+
+Les tests permettent de vérifier :
+
+* le bon fonctionnement de l’API FastAPI
+* le chargement du modèle de machine learning
+* le comportement de l’endpoint `/predict`
+* la gestion des erreurs et des cas limites
+
+Les fichiers de test sont situés dans le dossier :
+
+```
+tests/
+```
+
+### Installation des dépendances de test
+
+Avant d’exécuter les tests, assurez-vous que toutes les dépendances sont installées :
+
+```bash
+pip install -r requirements.txt
+```
+
+### Exécution des tests
+
+Pour lancer l’ensemble des tests, utilisez la commande suivante :
+
+```bash
+pytest
+```
+
+Pytest exécutera automatiquement tous les fichiers de test présents dans le dossier `tests`.
+
+### Couverture de tests
+
+La couverture du code peut être mesurée à l’aide de **pytest-cov** afin d’évaluer la part du code testée.
+
+Pour exécuter les tests avec un rapport de couverture :
+
+```bash
+pytest --cov=app
+```
+
+Cela permet d’obtenir un rapport indiquant quelles parties du code sont couvertes par les tests.
+
+### Objectif des tests
+
+Les tests ont pour objectif de :
+
+* vérifier la stabilité de l’API
+* détecter rapidement les régressions
+* garantir la qualité du code avant déploiement
+* automatiser la validation du projet dans le pipeline CI/CD
+
 
 
 

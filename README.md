@@ -17,7 +17,7 @@ Ce projet illustre les bonnes pratiques d’ingénierie logicielle appliquées a
 
 L'objectif est de rendre un modèle de machine learning accessible via une **API performante et documentée** afin de pouvoir être utilisé par d'autres applications.
 
-Le modèle est entraîné sur le dataset **Iris** et permet de prédire la classe d'une fleur à partir de ses caractéristiques.
+
 
 ---
 

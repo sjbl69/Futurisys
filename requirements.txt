@@ -9,3 +9,4 @@ pytest
 pytest-cov
 python-dotenv
 httpx
+python-multipart

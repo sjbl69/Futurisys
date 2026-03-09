@@ -3,6 +3,7 @@ from app.main import app
 
 client = TestClient(app)
 
+
 def test_read_root():
     response = client.get("/")
 
@@ -10,5 +11,7 @@ def test_read_root():
 
     data = response.json()
 
+    assert "message" in data
     assert data["message"] == "Futurisys ML API"
+
     assert "environment" in data

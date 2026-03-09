@@ -4,4 +4,4 @@ model = joblib.load("ml_model/model.pkl")
 
 def predict(data):
     prediction = model.predict([data])
-    return prediction[0]
+    return int(prediction[0])

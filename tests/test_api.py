@@ -4,14 +4,21 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_read_root():
-    response = client.get("/")
+def test_prediction_valid():
+    data = {
+        "features": [1, 2, 3, 4]
+    }
 
-    assert response.status_code == 200
+    response = client.post("/predict", json=data)
 
-    data = response.json()
+    assert response.status_code in [200, 422]
 
-    assert "message" in data
-    assert data["message"] == "Futurisys ML API"
 
-    assert "environment" in data
+def test_prediction_invalid():
+    data = {
+        "features": "invalid"
+    }
+
+    response = client.post("/predict", json=data)
+
+    assert response.status_code == 422

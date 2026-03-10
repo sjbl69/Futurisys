@@ -10,7 +10,6 @@ def test_read_root():
 
     data = response.json()
 
-    assert "message" in data
     assert data["message"] == "Futurisys ML API"
     assert "environment" in data
 
@@ -21,9 +20,7 @@ def test_prediction_valid():
     response = client.post("/predict", json=data)
 
     assert response.status_code == 200
-
-    result = response.json()
-    assert "prediction" in result
+    assert "prediction" in response.json()
 
 
 def test_prediction_invalid():

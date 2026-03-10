@@ -11,7 +11,7 @@ def test_prediction_valid():
 
     response = client.post("/predict", json=data)
 
-    assert response.status_code in [200, 422]
+    assert response.status_code == 200
 
 
 def test_prediction_invalid():

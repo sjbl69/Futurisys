@@ -1,32 +1,29 @@
-import os
-from fastapi import FastAPI
-from app.models.ml_model import predict
-from pydantic import BaseModel, Field
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from typing import List
+from app.models.ml_model import predict
 
 app = FastAPI()
 
-APP_ENV = os.getenv("APP_ENV", "development")
-
 
 class PredictionRequest(BaseModel):
-    features: List[float] = Field(
-        ...,
-        min_items=4,
-        max_items=4,
-        example=[1.0, 2.0, 3.0, 4.0]
-    )
+    features: List[float]
 
 
 @app.get("/")
 def read_root():
     return {
         "message": "Futurisys ML API",
-        "environment": APP_ENV
+        "environment": "development"
     }
 
 
 @app.post("/predict")
-def get_prediction(data: PredictionRequest):
-    result = predict(data.features)
+def get_prediction(request: PredictionRequest):
+
+    if len(request.features) != 4:
+        raise HTTPException(status_code=422, detail="Invalid number of features")
+
+    result = predict(request.features)
+
     return {"prediction": result}

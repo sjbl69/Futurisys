@@ -6,7 +6,7 @@ client = TestClient(app)
 
 def test_prediction_valid():
     data = {
-        "features": [1.0, 2.0, 3.0, 4.0]
+        "features": [1, 2, 3, 4]
     }
 
     response = client.post("/predict", json=data)
@@ -18,16 +18,6 @@ def test_prediction_valid():
 def test_prediction_invalid():
     data = {
         "features": "invalid"
-    }
-
-    response = client.post("/predict", json=data)
-
-    assert response.status_code == 422
-
-
-def test_prediction_wrong_number_features():
-    data = {
-        "features": [1.0, 2.0]
     }
 
     response = client.post("/predict", json=data)

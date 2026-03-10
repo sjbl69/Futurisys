@@ -15,7 +15,9 @@ def test_read_root():
 
 
 def test_prediction_valid():
-    data = [1, 2, 3, 4]
+    data = {
+        "features": [1, 2, 3, 4]
+    }
 
     response = client.post("/predict", json=data)
 
@@ -24,7 +26,19 @@ def test_prediction_valid():
 
 
 def test_prediction_invalid():
-    data = "invalid"
+    data = {
+        "features": "invalid"
+    }
+
+    response = client.post("/predict", json=data)
+
+    assert response.status_code == 422
+
+
+def test_prediction_wrong_number_features():
+    data = {
+        "features": [1, 2]
+    }
 
     response = client.post("/predict", json=data)
 

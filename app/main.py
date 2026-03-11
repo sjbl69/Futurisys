@@ -1,17 +1,16 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 
 from app.models.ml_model import predict
-
 from app.database.db import SessionLocal, engine
 from app.database.models import Base, Prediction
 
 
 app = FastAPI()
 
-# créer les tables automatiquement (important pour les tests CI)
+# création automatique des tables (important pour CI/tests)
 Base.metadata.create_all(bind=engine)
 
 APP_ENV = os.getenv("APP_ENV", "development")
@@ -32,9 +31,12 @@ def read_root():
 @app.post("/predict")
 def get_prediction(data: PredictionRequest):
 
-    # vérifier le nombre de features
+    # validation du nombre de features
     if len(data.features) != 4:
-        return {"error": "Model expects 4 features"}
+        raise HTTPException(
+            status_code=422,
+            detail="Model expects 4 features"
+        )
 
     # appel du modèle
     result = predict(data.features)

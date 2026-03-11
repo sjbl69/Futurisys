@@ -3,18 +3,18 @@
 Futurisys est une API développée avec **FastAPI** permettant de déployer un modèle de **Machine Learning** en production.  
 Le projet expose un modèle de classification via une API REST documentée automatiquement avec **Swagger/OpenAPI**.
 
-Futurisys/
+Futurisys
 │
-├── app/
-│   ├── main.py
-│   ├── models/
-│   ├── database/
+├── .github/workflows   → CI/CD GitHub Actions
+├── app                 → API FastAPI
+│   ├── database
+│   ├── models
+│   └── main.py
 │
-├── ml_model/
-│   ├── train_model.py
-│   └── model.pkl
+├── ml_model            → modèle ML + training
+├── tests               → tests Pytest
 │
-├── tests/
+├── create_tables.py
 ├── requirements.txt
 └── README.md
 

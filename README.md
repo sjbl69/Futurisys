@@ -3,6 +3,21 @@
 Futurisys est une API développée avec **FastAPI** permettant de déployer un modèle de **Machine Learning** en production.  
 Le projet expose un modèle de classification via une API REST documentée automatiquement avec **Swagger/OpenAPI**.
 
+Futurisys/
+│
+├── app/
+│   ├── main.py
+│   ├── models/
+│   ├── database/
+│
+├── ml_model/
+│   ├── train_model.py
+│   └── model.pkl
+│
+├── tests/
+├── requirements.txt
+└── README.md
+
 Ce projet illustre les bonnes pratiques d’ingénierie logicielle appliquées au machine learning :
 - architecture de projet structurée
 - API FastAPI
@@ -73,6 +88,20 @@ Démarrer le serveur : uvicorn app.main:app --reload
 
 L’API sera disponible à l’adresse : http://127.0.0.1:8000
 
+## Fonctionnement de l’API
+
+L'API expose un endpoint principal :
+
+POST /predict
+
+Ce endpoint :
+
+1. reçoit les données d’entrée (features)
+2. appelle le modèle de machine learning
+3. génère une prédiction
+4. enregistre les données et la prédiction dans PostgreSQL
+5. retourne la prédiction au client
+
 
 ---
 
@@ -84,6 +113,26 @@ Swagger UI : http://127.0.0.1:8000/docs
 
 
 ---
+
+## Base de données
+
+Le projet utilise PostgreSQL pour enregistrer les prédictions générées par le modèle.
+
+Chaque appel à l’endpoint `/predict` enregistre :
+
+- les données d’entrée
+- la prédiction du modèle
+- la date de la requête
+
+Table : predictions
+
+| Column | Type | Description |
+|------|------|------|
+| id | Integer | Primary key |
+| feature1 | Float | Input feature |
+| feature2 | Float | Input feature |
+| prediction | Float | Model prediction |
+| created_at | DateTime | Timestamp |
 
 # Tests
 

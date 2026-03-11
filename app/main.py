@@ -4,11 +4,15 @@ from pydantic import BaseModel
 from typing import List
 
 from app.models.ml_model import predict
-from app.database.db import SessionLocal
-from app.database.models import Prediction
+
+from app.database.db import SessionLocal, engine
+from app.database.models import Base, Prediction
 
 
 app = FastAPI()
+
+# créer les tables automatiquement (important pour les tests CI)
+Base.metadata.create_all(bind=engine)
 
 APP_ENV = os.getenv("APP_ENV", "development")
 
@@ -28,10 +32,14 @@ def read_root():
 @app.post("/predict")
 def get_prediction(data: PredictionRequest):
 
+    # vérifier le nombre de features
+    if len(data.features) != 4:
+        return {"error": "Model expects 4 features"}
+
     # appel du modèle
     result = predict(data.features)
 
-    # transformer array -> valeur
+    # transformer array -> float
     result = float(result[0])
 
     db = SessionLocal()

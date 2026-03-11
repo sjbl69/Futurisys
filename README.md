@@ -226,7 +226,7 @@ Table: predictions
 - Scikit-learn
 - Pytest
 - GitHub Actions
-- Hugging Face Spaces
+- Render
 
 ---
 

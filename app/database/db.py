@@ -2,12 +2,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql+psycopg2://postgres:postgres@localhost:5433/futurisys_db"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(DATABASE_URL)
+# Si aucune DB n'est définie (ex: CI GitHub)
+if not DATABASE_URL:
+    DATABASE_URL = "sqlite:///./test.db"
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,

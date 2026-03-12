@@ -4,13 +4,10 @@ import os
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "sqlite:///./test.db"
+    "postgresql+psycopg2://postgres:postgres@localhost:5433/futurisys_db"
 )
 
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
-)
+engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(
     autocommit=False,

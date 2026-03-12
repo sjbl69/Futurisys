@@ -1,5 +1,8 @@
-from app.database.init_db import init_db
+from app.database.db import engine, Base
+from app.models.db_models import Prediction
 
-init_db()
+print("Création des tables...")
+
+Base.metadata.create_all(bind=engine)
 
 print("Tables créées avec succès")

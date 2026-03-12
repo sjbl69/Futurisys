@@ -124,15 +124,20 @@ Chaque appel à l’endpoint `/predict` enregistre :
 - la prédiction du modèle
 - la date de la requête
 
-Table : predictions
+## Modèle de données
 
-| Column | Type | Description |
-|------|------|------|
-| id | Integer | Primary key |
-| feature1 | Float | Input feature |
-| feature2 | Float | Input feature |
-| prediction | Float | Model prediction |
-| created_at | DateTime | Timestamp |
+```mermaid
+erDiagram
+    PREDICTIONS {
+        int id
+        float feature1
+        float feature2
+        float feature3
+        float feature4
+        float prediction
+        datetime created_at
+    }
+```
 
 # Tests
 

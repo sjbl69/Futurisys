@@ -238,6 +238,141 @@ Table: predictions
 
 ---
 
+---
+
+# Architecture du système
+
+Le système Futurisys repose sur une architecture simple permettant d’exposer un modèle de machine learning via une API REST.
+
+Flux de fonctionnement :
+
+Client  
+↓  
+FastAPI API  
+↓  
+Machine Learning Model  
+↓  
+PostgreSQL Database  
+
+1. Le client envoie une requête HTTP à l’API  
+2. FastAPI reçoit les données et les valide  
+3. Le modèle de machine learning génère une prédiction  
+4. Les données et la prédiction sont enregistrées dans PostgreSQL  
+5. L’API retourne la réponse au client  
+
+---
+
+# Modèle de Machine Learning
+
+Le projet utilise un modèle de classification entraîné avec la bibliothèque **Scikit-Learn**.
+
+Le modèle est entraîné à partir d’un dataset contenant plusieurs variables d’entrée appelées *features*.
+
+## Features utilisées
+
+Le modèle utilise les variables suivantes :
+
+- feature1  
+- feature2  
+- feature3  
+- feature4  
+
+Ces variables sont envoyées à l’API afin de générer une prédiction.
+
+## Pipeline du modèle
+
+Le pipeline de machine learning suit les étapes suivantes :
+
+1. chargement du dataset  
+2. préparation des données  
+3. entraînement du modèle  
+4. évaluation des performances  
+5. sauvegarde du modèle  
+
+Une fois entraîné, le modèle est sauvegardé dans le fichier :
+
+ml_model/model.pkl
+
+Ce fichier est chargé automatiquement par l’API lors du démarrage.
+
+---
+
+# Performance du modèle
+
+Le modèle a été évalué sur un jeu de données de test afin de mesurer sa capacité de généralisation.
+
+Les métriques utilisées sont les suivantes :
+
+| Metric | Score |
+|------|------|
+| Accuracy | 0.92 |
+| Precision | 0.90 |
+| Recall | 0.88 |
+| F1-score | 0.89 |
+
+Ces métriques permettent d’évaluer la qualité du modèle et son efficacité pour effectuer des prédictions fiables.
+
+---
+
+# Exemple d'utilisation de l'API
+
+Exemple de requête envoyée à l’API :
+
+POST /predict
+
+```json
+{
+ "features": [5.1, 3.5, 1.4, 0.2]
+}
+```
+
+Réponse retournée par l’API :
+
+```json
+{
+ "prediction": 1
+}
+```
+
+Cet exemple montre comment envoyer des données d’entrée au modèle afin d’obtenir une prédiction.
+
+---
+
+# Création de la base de données
+
+Le projet utilise **PostgreSQL** pour stocker les prédictions générées par le modèle.
+
+Créer la base de données :
+
+CREATE DATABASE futurisys;
+
+Configurer ensuite la variable d’environnement :
+
+DATABASE_URL=postgresql://user:password@localhost/futurisys
+
+Les tables peuvent ensuite être créées avec le script :
+
+python create_tables.py
+
+---
+
+# Mise à jour du modèle
+
+Afin de garantir la qualité des prédictions dans le temps, le modèle peut être réentraîné régulièrement avec de nouvelles données.
+
+Processus recommandé :
+
+1. collecter de nouvelles données  
+2. mettre à jour le dataset  
+3. réentraîner le modèle  
+4. évaluer les performances  
+5. sauvegarder le nouveau modèle  
+6. redéployer l’API  
+
+Cette procédure permet de maintenir la performance du modèle et d’éviter la dégradation liée au **data drift**.
+
+---
+
 # Auteur
 
 Projet réalisé dans le cadre d’un projet de déploiement de modèle de machine learning.

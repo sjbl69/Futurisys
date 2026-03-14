@@ -1,29 +1,32 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import List
+import os
 from datetime import datetime
+
+from fastapi import FastAPI, Body, HTTPException
 
 from app.models.ml_model import predict
 from app.database.db import SessionLocal
 from app.database.models import Prediction
 
+
 app = FastAPI()
-
-
-# Modèle d'entrée pour l'API
-class PredictionRequest(BaseModel):
-    features: List[float]
 
 
 @app.get("/")
 def read_root():
-    return {"message": "Futurisys ML API"}
+    return {
+        "message": "Futurisys ML API",
+        "environment": os.getenv("APP_ENV", "development")
+    }
 
 
 @app.post("/predict")
-def get_prediction(data: PredictionRequest):
+def get_prediction(features: list = Body(...)):
 
-    features = data.features
+    if len(features) != 4:
+        raise HTTPException(
+            status_code=400,
+            detail="Exactly 4 features are required"
+        )
 
     result = predict(features)
 

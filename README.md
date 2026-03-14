@@ -132,18 +132,15 @@ La table `predictions` enregistre les entrées envoyées au modèle ainsi que la
 
 La table `predictions` enregistre les entrées envoyées au modèle ainsi que la prédiction produite.
 
-```mermaid
-erDiagram
-    PREDICTIONS {
-        int id
-        float feature1
-        float feature2
-        float feature3
-        float feature4
-        float prediction
-        datetime created_at
-    }
-```
+| Type | Colonne |
+|-----|--------|
+| int | id |
+| float | feature1 |
+| float | feature2 |
+| float | feature3 |
+| float | feature4 |
+| float | prediction |
+| datetime | created_at |
 
 # Tests
 

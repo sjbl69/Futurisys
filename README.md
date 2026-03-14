@@ -126,6 +126,8 @@ Chaque appel à l’endpoint `/predict` enregistre :
 
 ## Modèle de données
 
+La table `predictions` enregistre les entrées envoyées au modèle ainsi que la prédiction produite.
+
 ```mermaid
 erDiagram
     PREDICTIONS {

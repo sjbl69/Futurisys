@@ -19,6 +19,7 @@ Futurisys
 └── README.md
 
 Ce projet illustre les bonnes pratiques d’ingénierie logicielle appliquées au machine learning :
+
 - architecture de projet structurée
 - API FastAPI
 - gestion des dépendances
@@ -31,11 +32,6 @@ Ce projet illustre les bonnes pratiques d’ingénierie logicielle appliquées a
 # Objectif du projet
 
 L'objectif est de rendre un modèle de machine learning accessible via une **API performante et documentée** afin de pouvoir être utilisé par d'autres applications.
-
-
-
----
-
 
 ---
 
@@ -52,47 +48,76 @@ Avant d’installer le projet, assurez-vous d’avoir :
 # Installation
 
 Clonez le dépôt :
+
+```bash
 git clone https://github.com/sjbl69/Futurisys.git
+```
 
+```bash
 cd Futurisys
+```
 
+Créer un environnement virtuel :
 
-Créez un environnement virtuel : python -m venv .venv
+```bash
+python -m venv .venv
+```
 
-
-Activez l'environnement :
+Activer l’environnement :
 
 Windows :
+
+```bash
 .venv\Scripts\activate
+```
 
+Installer les dépendances :
 
-Installez les dépendances : pip install -r requirements.txt
-
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
 # Entraîner le modèle
 
-Si le modèle n’est pas encore généré : python ml_model/train_model.py
+Si le modèle n’est pas encore généré :
 
+```bash
+python ml_model/train_model.py
+```
 
-Cela crée : ml_model/model.pkl
+Cela crée :
 
+```
+ml_model/model.pkl
+```
 
 ---
 
 # Lancer l’API
 
-Démarrer le serveur : uvicorn app.main:app --reload
+Démarrer le serveur :
 
+```bash
+uvicorn app.main:app --reload
+```
 
-L’API sera disponible à l’adresse : http://127.0.0.1:8000
+L’API sera disponible à l’adresse :
 
-## Fonctionnement de l’API
+```
+http://127.0.0.1:8000
+```
+
+---
+
+# Fonctionnement de l’API
 
 L'API expose un endpoint principal :
 
+```
 POST /predict
+```
 
 Ce endpoint :
 
@@ -102,128 +127,17 @@ Ce endpoint :
 4. enregistre les données et la prédiction dans PostgreSQL
 5. retourne la prédiction au client
 
-
 ---
 
 # Documentation de l’API
 
 FastAPI génère automatiquement une documentation interactive.
 
-Swagger UI : http://127.0.0.1:8000/docs
-
-
----
-
-## Base de données
-
-Le projet utilise PostgreSQL pour enregistrer les prédictions générées par le modèle.
-
-Chaque appel à l’endpoint `/predict` enregistre :
-
-- les données d’entrée
-- la prédiction du modèle
-- la date de la requête
-
-## Modèle de données
-
-La table `predictions` enregistre les entrées envoyées au modèle ainsi que la prédiction produite.
-
-
-| Type | Colonne |
-|-----|--------|
-| int | id |
-| float | feature1 |
-| float | feature2 |
-| float | feature3 |
-| float | feature4 |
-| float | prediction |
-| datetime | created_at |
-
-# Tests
-
-## Tests
-
-Afin de garantir la fiabilité et la robustesse de l’API, des tests unitaires et fonctionnels ont été mis en place à l’aide de **Pytest**.
-
-Les tests permettent de vérifier :
-
-* le bon fonctionnement de l’API FastAPI
-* le chargement du modèle de machine learning
-* le comportement de l’endpoint `/predict`
-* la gestion des erreurs et des cas limites
-
-Les fichiers de test sont situés dans le dossier :
+Swagger UI :
 
 ```
-tests/
+http://127.0.0.1:8000/docs
 ```
-
-### Installation des dépendances de test
-
-Avant d’exécuter les tests, assurez-vous que toutes les dépendances sont installées :
-
-```bash
-pip install -r requirements.txt
-```
-
-### Exécution des tests
-
-Pour lancer l’ensemble des tests, utilisez la commande suivante :
-
-```bash
-pytest
-```
-
-Pytest exécutera automatiquement tous les fichiers de test présents dans le dossier `tests`.
-
-### Couverture de tests
-
-La couverture du code peut être mesurée à l’aide de **pytest-cov** afin d’évaluer la part du code testée.
-
-Pour exécuter les tests avec un rapport de couverture :
-
-```bash
-pytest --cov=app
-```
-
-Cela permet d’obtenir un rapport indiquant quelles parties du code sont couvertes par les tests.
-
-### Objectif des tests
-
-Les tests ont pour objectif de :
-
-* vérifier la stabilité de l’API
-* détecter rapidement les régressions
-* garantir la qualité du code avant déploiement
-* automatiser la validation du projet dans le pipeline CI/CD
-
-
-
-
----
-
-# CI/CD
-
-Le projet inclut un pipeline CI/CD avec **GitHub Actions** permettant :
-
-- l’exécution automatique des tests
-- la validation du code
-- le déploiement automatisé
-
----
-
-
-
-# Technologies utilisées
-
-- Python
-- FastAPI
-- Scikit-learn
-- Pytest
-- GitHub Actions
-- Render
-
----
 
 ---
 
@@ -278,7 +192,9 @@ Le pipeline de machine learning suit les étapes suivantes :
 
 Une fois entraîné, le modèle est sauvegardé dans le fichier :
 
+```
 ml_model/model.pkl
+```
 
 Ce fichier est chargé automatiquement par l’API lors du démarrage.
 
@@ -325,21 +241,110 @@ Cet exemple montre comment envoyer des données d’entrée au modèle afin d’
 
 ---
 
+# Base de données
+
+Le projet utilise PostgreSQL pour enregistrer les prédictions générées par le modèle.
+
+Chaque appel à l’endpoint `/predict` enregistre :
+
+- les données d’entrée
+- la prédiction du modèle
+- la date de la requête
+
+## Modèle de données
+
+La table `predictions` enregistre les entrées envoyées au modèle ainsi que la prédiction produite.
+
+| Type | Colonne |
+|-----|--------|
+| int | id |
+| float | feature1 |
+| float | feature2 |
+| float | feature3 |
+| float | feature4 |
+| float | prediction |
+| datetime | created_at |
+
+---
+
 # Création de la base de données
 
-Le projet utilise **PostgreSQL** pour stocker les prédictions générées par le modèle.
+Créer la base PostgreSQL :
 
-Créer la base de données :
-
+```
 CREATE DATABASE futurisys;
+```
 
-Configurer ensuite la variable d’environnement :
+Configurer la variable d’environnement :
 
+```
 DATABASE_URL=postgresql://user:password@localhost/futurisys
+```
 
-Les tables peuvent ensuite être créées avec le script :
+Créer les tables :
 
+```bash
 python create_tables.py
+```
+
+---
+
+# Tests
+
+Afin de garantir la fiabilité et la robustesse de l’API, des tests unitaires et fonctionnels ont été mis en place à l’aide de **Pytest**.
+
+Les tests permettent de vérifier :
+
+- le bon fonctionnement de l’API FastAPI
+- le chargement du modèle de machine learning
+- le comportement de l’endpoint `/predict`
+- la gestion des erreurs et des cas limites
+
+Les fichiers de test sont situés dans :
+
+```
+tests/
+```
+
+### Lancer les tests
+
+```bash
+pytest
+```
+
+### Couverture de tests
+
+```bash
+pytest --cov=app
+```
+
+Les tests permettent de :
+
+- vérifier la stabilité de l’API
+- détecter rapidement les régressions
+- garantir la qualité du code
+- automatiser la validation dans le pipeline CI/CD
+
+---
+
+# CI/CD
+
+Le projet inclut un pipeline CI/CD avec **GitHub Actions** permettant :
+
+- l’exécution automatique des tests
+- la validation du code
+- le déploiement automatisé
+
+---
+
+# Technologies utilisées
+
+- Python
+- FastAPI
+- Scikit-learn
+- Pytest
+- GitHub Actions
+- Render
 
 ---
 
@@ -356,14 +361,13 @@ Processus recommandé :
 5. sauvegarder le nouveau modèle  
 6. redéployer l’API  
 
-Cette procédure permet de maintenir la performance du modèle et d’éviter la dégradation liée au **data drift**.
+Cette procédure permet d’éviter la dégradation du modèle liée au **data drift**.
 
 ---
 
 # Auteur
 
 Projet réalisé dans le cadre d’un projet de déploiement de modèle de machine learning.
- 
  
  
 

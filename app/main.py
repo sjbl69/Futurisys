@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from datetime import datetime
 from typing import List
+from datetime import datetime
 
 from app.models.ml_model import predict
 from app.database.db import SessionLocal
@@ -24,9 +24,12 @@ def read_root():
 
 
 @app.post("/predict")
-def get_prediction(data: PredictionRequest):
+def get_prediction(request: PredictionRequest):
 
-    features = data.features
+    features = request.features
+
+    if len(features) != 4:
+        raise ValueError("Model expects 4 features")
 
     result = predict(features)
 

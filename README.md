@@ -128,9 +128,6 @@ Chaque appel à l’endpoint `/predict` enregistre :
 
 La table `predictions` enregistre les entrées envoyées au modèle ainsi que la prédiction produite.
 
-## Modèle de données
-
-La table `predictions` enregistre les entrées envoyées au modèle ainsi que la prédiction produite.
 
 | Type | Colonne |
 |-----|--------|

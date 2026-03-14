@@ -1,13 +1,23 @@
 import joblib
-import numpy as np
 import os
+import numpy as np
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-MODEL_PATH = os.path.join(BASE_DIR, "ml_model", "model.pkl")
+# chemin vers le modèle sauvegardé
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "../../data/model.joblib")
 
+# chargement du modèle au démarrage
 model = joblib.load(MODEL_PATH)
 
+
 def predict(features):
-    features = np.array(features).reshape(1, -1)
-    prediction = model.predict(features)
-    return prediction
+    """
+    Prend une liste de 4 features et retourne une prédiction du modèle.
+    """
+
+    # convertir en array numpy 2D (format attendu par sklearn)
+    X = np.array(features).reshape(1, -1)
+
+    prediction = model.predict(X)
+
+    # retourner un float simple
+    return float(prediction[0])

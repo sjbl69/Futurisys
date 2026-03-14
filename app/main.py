@@ -7,7 +7,6 @@ from app.models.ml_model import predict
 from app.database.db import SessionLocal
 from app.database.models import Prediction
 
-
 app = FastAPI()
 
 
@@ -28,14 +27,11 @@ def get_prediction(request: PredictionRequest):
 
     features = request.features
 
-    if len(features) != 4:
-        raise ValueError("Model expects 4 features")
-
     result = predict(features)
 
     db = SessionLocal()
 
-    new_prediction = Prediction(
+    prediction_row = Prediction(
         feature1=features[0],
         feature2=features[1],
         feature3=features[2],
@@ -44,7 +40,7 @@ def get_prediction(request: PredictionRequest):
         created_at=datetime.utcnow()
     )
 
-    db.add(new_prediction)
+    db.add(prediction_row)
     db.commit()
     db.close()
 

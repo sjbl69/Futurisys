@@ -2,12 +2,15 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 from datetime import datetime
+import os
 
 from app.models.ml_model import predict
 from app.database.db import SessionLocal
 from app.database.models import Prediction
 
 app = FastAPI()
+
+APP_ENV = os.getenv("APP_ENV", "development")
 
 
 class PredictionRequest(BaseModel):
@@ -16,7 +19,10 @@ class PredictionRequest(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"message": "Futurisys ML API"}
+    return {
+        "message": "Futurisys ML API",
+        "environment": APP_ENV
+    }
 
 
 @app.post("/predict")
@@ -26,7 +32,7 @@ def get_prediction(request: PredictionRequest):
 
     if len(features) != 4:
         raise HTTPException(
-            status_code=400,
+            status_code=422,
             detail="Model expects exactly 4 features"
         )
 

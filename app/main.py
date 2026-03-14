@@ -14,18 +14,14 @@ class PredictionRequest(BaseModel):
     features: List[float]
 
 
-@app.get("/")
-def read_root():
-    return {
-        "message": "Futurisys ML API",
-        "environment": "development"
-    }
-
-
 @app.post("/predict")
 def get_prediction(request: PredictionRequest):
 
     features = request.features
+
+    # vérification du nombre de features
+    if len(features) != 4:
+        raise ValueError("Model expects exactly 4 features")
 
     result = predict(features)
 

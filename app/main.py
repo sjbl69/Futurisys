@@ -1,55 +1,41 @@
-import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
+from datetime import datetime
 
 from app.models.ml_model import predict
-from app.database.db import SessionLocal, engine
-from app.database.models import Base, Prediction
-
+from app.database.db import SessionLocal
+from app.database.models import Prediction
 
 app = FastAPI()
 
-# création automatique des tables (important pour CI/tests)
-Base.metadata.create_all(bind=engine)
 
-APP_ENV = os.getenv("APP_ENV", "development")
-
-
+# Modèle d'entrée pour l'API
 class PredictionRequest(BaseModel):
     features: List[float]
 
 
 @app.get("/")
 def read_root():
-    return {
-        "message": "Futurisys ML API",
-        "environment": APP_ENV
-    }
+    return {"message": "Futurisys ML API"}
 
 
 @app.post("/predict")
 def get_prediction(data: PredictionRequest):
 
-    # validation du nombre de features
-    if len(data.features) != 4:
-        raise HTTPException(
-            status_code=422,
-            detail="Model expects 4 features"
-        )
+    features = data.features
 
-    # appel du modèle
-    result = predict(data.features)
-
-    # transformer array -> float
-    result = float(result[0])
+    result = predict(features)
 
     db = SessionLocal()
 
     new_prediction = Prediction(
-        feature1=data.features[0],
-        feature2=data.features[1],
-        prediction=result
+        feature1=features[0],
+        feature2=features[1],
+        feature3=features[2],
+        feature4=features[3],
+        prediction=result,
+        created_at=datetime.utcnow()
     )
 
     db.add(new_prediction)
@@ -57,13 +43,3 @@ def get_prediction(data: PredictionRequest):
     db.close()
 
     return {"prediction": result}
-
-
-@app.get("/predictions")
-def get_predictions():
-
-    db = SessionLocal()
-    predictions = db.query(Prediction).all()
-    db.close()
-
-    return predictions

@@ -1,5 +1,5 @@
 from app.database.db import engine, Base
-from app.models.db_models import Prediction
+from app.database.models import Prediction
 
 print("Création des tables...")
 

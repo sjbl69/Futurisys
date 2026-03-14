@@ -5,11 +5,16 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Si aucune variable n'est définie (ex: GitHub Actions)
+# on utilise SQLite pour les tests
 if not DATABASE_URL:
-    raise ValueError("DATABASE_URL must be set for PostgreSQL")
+    DATABASE_URL = "sqlite:///./test.db"
 
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,

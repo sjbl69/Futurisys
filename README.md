@@ -212,17 +212,7 @@ Le projet inclut un pipeline CI/CD avec **GitHub Actions** permettant :
 
 ---
 
-## Database schema
 
-Table: predictions
-
-| Column      | Type      | Description |
-|-------------|-----------|-------------|
-| id          | Integer   | Primary key |
-| feature1    | Float     | Input feature |
-| feature2    | Float     | Input feature |
-| prediction  | Float     | Model prediction |
-| created_at  | DateTime  | Timestamp of prediction |
 
 # Technologies utilisées
 

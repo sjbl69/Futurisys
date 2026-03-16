@@ -359,6 +359,44 @@ Le projet inclut un pipeline CI/CD avec **GitHub Actions** permettant :
 
 ---
 
+# Déploiement
+
+L’API Futurisys est conçue pour être déployée sur une plateforme cloud.
+
+Dans ce projet, l’application est déployée sur **Render**, une plateforme permettant d’héberger facilement des services web basés sur Python.
+
+## URL de l’API
+
+Une fois déployée, l’API est accessible à l’adresse suivante :
+
+```
+https://futurisys.onrender.com
+```
+
+La documentation interactive de l’API est disponible via Swagger :
+
+```
+https://futurisys.onrender.com/docs
+```
+
+## Processus de déploiement
+
+Le déploiement du projet suit les étapes suivantes :
+
+1. Push du code sur le dépôt GitHub  
+2. Exécution du pipeline CI/CD via GitHub Actions  
+3. Installation des dépendances sur Render  
+4. Démarrage de l’API FastAPI avec Uvicorn  
+5. Mise à disposition de l’API sur Internet
+
+## Redéploiement
+
+Pour redéployer l’application :
+
+1. modifier le code localement  
+2. commit et push vers GitHub  
+3. Render redéploie automatiquement la nouvelle version
+
 # Technologies utilisées
 
 - Python  

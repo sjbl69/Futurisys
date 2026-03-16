@@ -397,6 +397,23 @@ Pour redéployer l’application :
 2. commit et push vers GitHub  
 3. Render redéploie automatiquement la nouvelle version
 
+# Sécurité et authentification
+
+Actuellement, l’API Futurisys ne nécessite pas d’authentification pour accéder à l’endpoint `/predict`.
+
+Dans un environnement de production réel, plusieurs mécanismes de sécurité pourraient être ajoutés :
+
+- authentification via **API Key**
+- authentification **JWT (JSON Web Token)**
+- limitation du nombre de requêtes (**rate limiting**)
+- journalisation des requêtes pour audit
+
+Ces mécanismes permettent de :
+
+- protéger l’API contre les accès non autorisés
+- éviter les abus ou les attaques par déni de service
+- garantir la traçabilité des appels au modèle de machine learning
+
 # Technologies utilisées
 
 - Python  

@@ -365,29 +365,81 @@ L’API Futurisys est conçue pour être déployée sur une plateforme cloud.
 
 Dans ce projet, l’application est déployée sur **Render**, une plateforme permettant d’héberger facilement des services web basés sur Python.
 
-## URL de l’API
+## API déployée
 
-Une fois déployée, l’API est accessible à l’adresse suivante :
+L’API est déployée et accessible en ligne sur Render :
 
-```
 https://futurisys.onrender.com
-```
 
-La documentation interactive de l’API est disponible via Swagger :
+### Accès à l’API
 
-```
+L’API peut être utilisée de plusieurs façons :
+
+#### Accès direct
+
+Une requête GET sur la racine de l’API permet de vérifier que le service fonctionne :
+
+https://futurisys.onrender.com
+
+Réponse attendue :
+
+{
+  "message": "Futurisys ML API",
+  "environment": "production"
+}
+
+#### Documentation interactive
+
+FastAPI génère automatiquement une documentation interactive Swagger :
+
 https://futurisys.onrender.com/docs
-```
 
-## Processus de déploiement
+Cette interface permet de tester les endpoints directement depuis le navigateur.
 
-Le déploiement du projet suit les étapes suivantes :
+#### Exemple d'appel à l’API
 
-1. Push du code sur le dépôt GitHub  
-2. Exécution du pipeline CI/CD via GitHub Actions  
-3. Installation des dépendances sur Render  
-4. Démarrage de l’API FastAPI avec Uvicorn  
-5. Mise à disposition de l’API sur Internet
+Endpoint :
+
+POST /predict
+
+Exemple de requête :
+
+{
+  "features": [5.1, 3.5, 1.4, 0.2]
+}
+
+Réponse :
+
+{
+  "prediction": 0
+}
+
+---
+
+## Variables d’environnement
+
+L’API utilise certaines variables d’environnement pour sa configuration.
+
+### DATABASE_URL
+
+Cette variable contient l’URL de connexion à la base de données PostgreSQL utilisée pour stocker les prédictions.
+
+Exemple :
+
+DATABASE_URL=postgresql://user:password@host:port/database
+
+### APP_ENV
+
+Cette variable permet de définir l’environnement d’exécution de l’application.
+
+Valeurs possibles :
+
+- development (en local)
+- production (sur Render)
+
+Sur l’API déployée :
+
+APP_ENV=production
 
 ## Redéploiement
 

@@ -3,6 +3,7 @@
 Futurisys est une API développée avec **FastAPI** permettant de déployer un modèle de **Machine Learning** en production.  
 Le projet expose un modèle de classification via une API REST documentée automatiquement avec **Swagger/OpenAPI**.
 
+```
 Futurisys
 │
 ├── .github/workflows   → CI/CD GitHub Actions
@@ -17,15 +18,16 @@ Futurisys
 ├── create_tables.py
 ├── requirements.txt
 └── README.md
+```
 
 Ce projet illustre les bonnes pratiques d’ingénierie logicielle appliquées au machine learning :
 
-- architecture de projet structurée
-- API FastAPI
-- gestion des dépendances
-- tests automatisés
-- CI/CD
-- déploiement sur une plateforme cloud
+- architecture de projet structurée  
+- API FastAPI  
+- gestion des dépendances  
+- tests automatisés  
+- CI/CD  
+- déploiement sur une plateforme cloud  
 
 ---
 
@@ -39,9 +41,9 @@ L'objectif est de rendre un modèle de machine learning accessible via une **API
 
 Avant d’installer le projet, assurez-vous d’avoir :
 
-- Python 3.10 ou supérieur
-- pip
-- Git
+- Python 3.10 ou supérieur  
+- pip  
+- Git  
 
 ---
 
@@ -51,9 +53,6 @@ Clonez le dépôt :
 
 ```bash
 git clone https://github.com/sjbl69/Futurisys.git
-```
-
-```bash
 cd Futurisys
 ```
 
@@ -121,11 +120,11 @@ POST /predict
 
 Ce endpoint :
 
-1. reçoit les données d’entrée (features)
-2. appelle le modèle de machine learning
-3. génère une prédiction
-4. enregistre les données et la prédiction dans PostgreSQL
-5. retourne la prédiction au client
+1. reçoit les données d’entrée (features)  
+2. appelle le modèle de machine learning  
+3. génère une prédiction  
+4. enregistre les données et la prédiction dans la base de données  
+5. retourne la prédiction au client  
 
 ---
 
@@ -153,12 +152,12 @@ FastAPI API
 ↓  
 Machine Learning Model  
 ↓  
-PostgreSQL Database  
+Database  
 
 1. Le client envoie une requête HTTP à l’API  
 2. FastAPI reçoit les données et les valide  
 3. Le modèle de machine learning génère une prédiction  
-4. Les données et la prédiction sont enregistrées dans PostgreSQL  
+4. Les données et la prédiction sont enregistrées dans la base de données  
 5. L’API retourne la réponse au client  
 
 ---
@@ -243,13 +242,24 @@ Cet exemple montre comment envoyer des données d’entrée au modèle afin d’
 
 # Base de données
 
-Le projet utilise PostgreSQL pour enregistrer les prédictions générées par le modèle.
+Le projet utilise **PostgreSQL** pour enregistrer les prédictions générées par le modèle en production.
 
 Chaque appel à l’endpoint `/predict` enregistre :
 
-- les données d’entrée
-- la prédiction du modèle
-- la date de la requête
+- les données d’entrée  
+- la prédiction du modèle  
+- la date de la requête  
+
+## Configuration de la base de données
+
+Le projet est conçu pour fonctionner avec **PostgreSQL en production**.
+
+Cependant, pour faciliter le développement local, une base **SQLite** est utilisée par défaut si la variable d’environnement `DATABASE_URL` n’est pas définie.
+
+Ainsi :
+
+- PostgreSQL → environnement de production  
+- SQLite → développement local  
 
 ## Modèle de données
 
@@ -295,10 +305,10 @@ Afin de garantir la fiabilité et la robustesse de l’API, des tests unitaires 
 
 Les tests permettent de vérifier :
 
-- le bon fonctionnement de l’API FastAPI
-- le chargement du modèle de machine learning
-- le comportement de l’endpoint `/predict`
-- la gestion des erreurs et des cas limites
+- le bon fonctionnement de l’API FastAPI  
+- le chargement du modèle de machine learning  
+- le comportement de l’endpoint `/predict`  
+- la gestion des erreurs et des cas limites  
 
 Les fichiers de test sont situés dans :
 
@@ -314,22 +324,18 @@ pytest
 
 ### Couverture de tests
 
+Un rapport de couverture peut être généré avec :
+
 ```bash
-pytest --cov=app
+pytest --cov=app --cov-report=html
 ```
 
 Les tests permettent de :
 
-- vérifier la stabilité de l’API
-- détecter rapidement les régressions
-- garantir la qualité du code
-- automatiser la validation dans le pipeline CI/CD
-
- ## Couverture de tests
-
-Un rapport de couverture peut être généré avec :
-
-pytest --cov=app --cov-report=html
+- vérifier la stabilité de l’API  
+- détecter rapidement les régressions  
+- garantir la qualité du code  
+- automatiser la validation dans le pipeline CI/CD  
 
 ---
 
@@ -337,20 +343,20 @@ pytest --cov=app --cov-report=html
 
 Le projet inclut un pipeline CI/CD avec **GitHub Actions** permettant :
 
-- l’exécution automatique des tests
-- la validation du code
-- le déploiement automatisé
+- l’exécution automatique des tests  
+- la validation du code à chaque push  
+- la vérification de la stabilité de l’API  
 
 ---
 
 # Technologies utilisées
 
-- Python
-- FastAPI
-- Scikit-learn
-- Pytest
-- GitHub Actions
-- Render
+- Python  
+- FastAPI  
+- Scikit-learn  
+- Pytest  
+- GitHub Actions  
+- Render  
 
 ---
 

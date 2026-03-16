@@ -325,6 +325,12 @@ Les tests permettent de :
 - garantir la qualité du code
 - automatiser la validation dans le pipeline CI/CD
 
+ ## Couverture de tests
+
+Un rapport de couverture peut être généré avec :
+
+pytest --cov=app --cov-report=html
+
 ---
 
 # CI/CD

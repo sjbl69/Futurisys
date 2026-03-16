@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Si aucune variable n'est définie (ex: GitHub Actions)
 # on utilise SQLite pour les tests
 if not DATABASE_URL:
     DATABASE_URL = "sqlite:///./test.db"

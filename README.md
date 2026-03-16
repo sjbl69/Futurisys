@@ -324,18 +324,28 @@ pytest
 
 ### Couverture de tests
 
-Un rapport de couverture peut être généré avec :
+Un rapport de couverture est généré avec :
 
 ```bash
 pytest --cov=app --cov-report=html
 ```
+
+
+Ce rapport est disponible dans :
+
+```
+htmlcov/index.html
+```
+
+Il permet de visualiser précisément quelles parties du code sont couvertes par les tests.
 
 Les tests permettent de :
 
 - vérifier la stabilité de l’API  
 - détecter rapidement les régressions  
 - garantir la qualité du code  
-- automatiser la validation dans le pipeline CI/CD  
+- automatiser la validation dans le pipeline CI/CD
+
 
 ---
 
